@@ -12,8 +12,15 @@
 }
 .markdown-alert-tip{
     display: flex;
+    flex-direction: column;
+    
     border-left-width: 0.25em;
     border-left-style: solid;
     border-left-color: #238636;
     padding-left: 1em;
+}
+.markdown-alert-title-tip{
+    display: flex;
+    color: #238636;
+    line-height: 1;
 }

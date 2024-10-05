@@ -1,12 +1,16 @@
+mod html;
+
 use std::path::{Path, PathBuf};
 
 use itertools::Itertools;
 use pdf_writer::Finish;
-use pulldown_cmark::{self as md, HeadingLevel, LinkType, Tag};
+use pulldown_cmark::{self as md, Event, HeadingLevel, LinkType, Tag};
 use serde::Serialize;
 use tera::{Context, Tera};
 
 use clap::Parser;
+
+use html::push_html;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
@@ -101,7 +105,8 @@ fn main() {
                 .into_iter()
                 .map(|(i, parser)| {
                     let mut html = String::new();
-                    pulldown_cmark::html::push_html(&mut html, parser);
+                    push_html(&mut html, parser);
+                    // pulldown_cmark::html::push_html(&mut html, parser);
                     Block { content: html }
                 })
                 .collect::<Vec<_>>();

@@ -1290,6 +1290,7 @@ dependencies = [
  "pathdiff",
  "pdf-writer",
  "pulldown-cmark",
+ "pulldown-cmark-escape",
  "serde",
  "tera",
 ]
