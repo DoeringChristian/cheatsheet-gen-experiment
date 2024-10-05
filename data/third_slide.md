@@ -9,4 +9,6 @@ $$
 test\
 $L = L_e + TL$
 
-![test](test.png)
+<!-- ![test](test.png)  -->
+
+![[test.png]]

@@ -42,10 +42,17 @@ fn main() {
             let mut options = md::Options::empty();
             options.insert(md::Options::ENABLE_MATH);
             options.insert(md::Options::ENABLE_TABLES);
+            options.insert(md::Options::ENABLE_GFM);
+            options.insert(md::Options::ENABLE_FOOTNOTES);
+            options.insert(md::Options::ENABLE_STRIKETHROUGH);
+            options.insert(md::Options::ENABLE_SMART_PUNCTUATION);
+            options.insert(md::Options::ENABLE_PLUSES_DELIMITED_METADATA_BLOCKS);
+            options.insert(md::Options::ENABLE_DEFINITION_LIST);
 
             let parser = md::Parser::new_ext(&src, options);
 
             let parser = parser.map(|event| {
+                dbg!(&event);
                 match &event {
                     pulldown_cmark::Event::Start(Tag::Link { .. }) => todo!(),
                     pulldown_cmark::Event::Start(Tag::Image {
