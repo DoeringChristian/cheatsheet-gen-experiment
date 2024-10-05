@@ -97,6 +97,13 @@ fn main() {
     )
     .unwrap();
 
+    fs_extra::copy_items(
+        &[&args.templates.join("css")],
+        args.out.to_str().unwrap(),
+        &fs_extra::dir::CopyOptions::default().overwrite(true),
+    )
+    .unwrap();
+
     let mut tera = Tera::new(args.templates.join("*.html").to_str().unwrap()).unwrap();
     tera.autoescape_on(vec![]);
 
