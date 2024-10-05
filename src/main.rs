@@ -44,7 +44,7 @@ fn main() {
             let src = std::fs::read_to_string(&filename).unwrap();
 
             let mut options = md::Options::empty();
-            options.insert(md::Options::ENABLE_MATH);
+            // options.insert(md::Options::ENABLE_MATH);
             options.insert(md::Options::ENABLE_TABLES);
             options.insert(md::Options::ENABLE_GFM);
             options.insert(md::Options::ENABLE_FOOTNOTES);
