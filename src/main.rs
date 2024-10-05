@@ -1,7 +1,8 @@
 use std::path::{Path, PathBuf};
 
 use itertools::Itertools;
-use pulldown_cmark::{self as md, HeadingLevel, Tag};
+use pdf_writer::Finish;
+use pulldown_cmark::{self as md, HeadingLevel, LinkType, Tag};
 use serde::Serialize;
 use tera::{Context, Tera};
 
@@ -10,7 +11,11 @@ use clap::Parser;
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Args {
-    folder: PathBuf,
+    // folder: PathBuf,
+    input: Vec<PathBuf>,
+
+    #[arg(short, long, default_value = "data/templates/")]
+    templates: PathBuf,
 
     #[arg(short, long, default_value = "out")]
     out: PathBuf,
@@ -24,38 +29,41 @@ struct Block {
 fn main() {
     let args = Args::parse();
 
-    let mut md_files = vec![];
-    let mut other_paths = vec![];
-
-    args.folder.read_dir().unwrap().for_each(|entry| {
-        let entry = entry.unwrap();
-        let path = entry.path();
-        if let Some(extension) = path.extension() {
-            if extension == "md" {
-                md_files.push(path);
-            } else {
-                other_paths.push(path);
-            }
-        } else {
-            if path.file_name().unwrap() != "templates" {
-                other_paths.push(path);
-            }
-        }
-    });
-
     dbg!(&args);
 
-    let blocks = md_files
+    let mut additional_files = vec![];
+
+    let blocks = args
+        .input
         .into_iter()
         .flat_map(|filename| {
             dbg!(&filename);
-            let src = std::fs::read_to_string(filename).unwrap();
+            let src = std::fs::read_to_string(&filename).unwrap();
 
             let mut options = md::Options::empty();
             options.insert(md::Options::ENABLE_MATH);
             options.insert(md::Options::ENABLE_TABLES);
 
             let parser = md::Parser::new_ext(&src, options);
+
+            let parser = parser.map(|event| {
+                match &event {
+                    pulldown_cmark::Event::Start(Tag::Link { .. }) => todo!(),
+                    pulldown_cmark::Event::Start(Tag::Image {
+                        link_type: LinkType::Inline,
+                        dest_url,
+                        ..
+                    }) => additional_files.push(
+                        filename
+                            .parent()
+                            .unwrap()
+                            .join(dest_url.as_ref())
+                            .to_path_buf(),
+                    ),
+                    _ => {}
+                };
+                event
+            });
 
             let mut chunk_id = 0;
             let parsers = parser.chunk_by(|event| match event {
@@ -66,7 +74,6 @@ fn main() {
                     chunk_id += 1;
                     chunk_id
                 }
-                // pulldown_cmark::Event::End(Tag::Heading { .. }) => todo!(),
                 _ => chunk_id,
             });
 
@@ -83,14 +90,15 @@ fn main() {
         })
         .collect::<Vec<_>>();
 
+    dbg!(&additional_files);
     fs_extra::copy_items(
-        &other_paths,
+        &additional_files,
         args.out.to_str().unwrap(),
         &fs_extra::dir::CopyOptions::default().overwrite(true),
     )
     .unwrap();
 
-    let mut tera = Tera::new(args.folder.join("templates/*.html").to_str().unwrap()).unwrap();
+    let mut tera = Tera::new(args.templates.join("*.html").to_str().unwrap()).unwrap();
     tera.autoescape_on(vec![]);
 
     let mut context = Context::new();
