@@ -1,4 +1,5 @@
 mod html;
+mod latex;
 
 use std::path::{Path, PathBuf};
 
@@ -11,6 +12,8 @@ use tera::{Context, Tera};
 use clap::Parser;
 
 use html::push_html;
+
+use self::latex::push_latex;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
@@ -44,7 +47,7 @@ fn main() {
             let src = std::fs::read_to_string(&filename).unwrap();
 
             let mut options = md::Options::empty();
-            // options.insert(md::Options::ENABLE_MATH);
+            options.insert(md::Options::ENABLE_MATH);
             options.insert(md::Options::ENABLE_TABLES);
             options.insert(md::Options::ENABLE_GFM);
             options.insert(md::Options::ENABLE_FOOTNOTES);
@@ -105,7 +108,7 @@ fn main() {
                 .into_iter()
                 .map(|(i, parser)| {
                     let mut html = String::new();
-                    push_html(&mut html, parser);
+                    push_latex(&mut html, parser);
                     // pulldown_cmark::html::push_html(&mut html, parser);
                     Block { content: html }
                 })
@@ -130,15 +133,15 @@ fn main() {
     )
     .unwrap();
 
-    let mut tera = Tera::new(args.templates.join("*.html").to_str().unwrap()).unwrap();
+    let mut tera = Tera::new(args.templates.join("*.tex").to_str().unwrap()).unwrap();
     tera.autoescape_on(vec![]);
 
     let mut context = Context::new();
     context.insert("blocks", &blocks);
 
-    let result = tera.render("index.html", &context).unwrap();
+    let result = tera.render("main.tex", &context).unwrap();
 
     dbg!(&result);
 
-    std::fs::write(args.out.join("index.html"), result).unwrap();
+    std::fs::write(args.out.join("main.tex"), result).unwrap();
 }

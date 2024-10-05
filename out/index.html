@@ -1,91 +1,129 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="css/main.css" />
-    </head>
-    <body>
-        <div class = "container">
-            
-                <div class = "block">
-                    <h1>First Slide</h1>
-<ul>
-<li>Improved implementation of</li>
-<li>For some reason my implementation is unreasonably slow</li>
-<li>Sorted notes</li>
-</ul>
-<blockquote class="markdown-alert-tip">
-<p class = "markdown-alert-title-tip">Tip</p>
-<p>is a tip<br />
-test</p>
-</blockquote>
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="block">
+        <h1>First Slide</h1>
+        <ul>
+          <li>Improved implementation of</li>
+          <li>For some reason my implementation is unreasonably slow</li>
+          <li>Sorted notes</li>
+        </ul>
+        <blockquote class="markdown-alert-tip">
+          <p class="markdown-alert-title-tip">Tip</p>
+          <p>
+            is a tip<br />
+            test
+          </p>
+        </blockquote>
+      </div>
 
-                </div>
-            
-                <div class = "block">
-                    <h1>Fourth Slide</h1>
-<p>There should be some pretty long content in here for the flexbox to wrap.</p>
+      <div class="block">
+        <h1>Fourth Slide</h1>
+        <p>
+          There should be some pretty long content in here for the flexbox to
+          wrap.
+        </p>
+      </div>
 
-                </div>
-            
-                <div class = "block">
-                    <h1>Fourth Slide Second Part</h1>
+      <div class="block">
+        <h1>Fourth Slide Second Part</h1>
+      </div>
 
-                </div>
-            
-                <div class = "block">
-                    <h1>Another part of the fourth slide</h1>
-<p>With some text that should expand the rendered card. Lorem Ipsum is simply dummy</p>
-<p>text of the printing and typesetting industry. Lorem Ipsum has been the</p>
-<p>industry’s standard dummy text ever since the 1500s, when an unknown printer</p>
-<p>took a galley of type and scrambled it to make a type specimen book. It has</p>
-<p>survived not only five centuries, but also the leap into electronic typesetting,</p>
-<p>remaining essentially unchanged. It was popularised in the 1960s with the</p>
-<p>release of Letraset sheets containing Lorem Ipsum passages, and more recently</p>
-<p>with desktop publishing software like Aldus PageMaker including versions of</p>
-<p>Lorem Ipsum.</p>
+      <div class="block">
+        <h1>Another part of the fourth slide</h1>
+        <p>
+          With some text that should expand the rendered card. Lorem Ipsum is
+          simply dummy
+        </p>
+        <p>
+          text of the printing and typesetting industry. Lorem Ipsum has been
+          the
+        </p>
+        <p>
+          industry’s standard dummy text ever since the 1500s, when an unknown
+          printer
+        </p>
+        <p>
+          took a galley of type and scrambled it to make a type specimen book.
+          It has
+        </p>
+        <p>
+          survived not only five centuries, but also the leap into electronic
+          typesetting,
+        </p>
+        <p>
+          remaining essentially unchanged. It was popularised in the 1960s with
+          the
+        </p>
+        <p>
+          release of Letraset sheets containing Lorem Ipsum passages, and more
+          recently
+        </p>
+        <p>
+          with desktop publishing software like Aldus PageMaker including
+          versions of
+        </p>
+        <p>Lorem Ipsum.</p>
+      </div>
 
-                </div>
-            
-                <div class = "block">
-                    <h1>Second Slide</h1>
-<ul>
-<li>Updates system [[fedora update]]</li>
-</ul>
-<table><thead><tr><th>test</th><th>test</th></tr></thead><tbody>
-<tr><td>abcdefghijklmnop</td><td>test</td></tr>
-</tbody></table>
+      <div class="block">
+        <h1>Second Slide</h1>
+        <ul>
+          <li>Updates system [[fedora update]]</li>
+        </ul>
+        <table>
+          <thead>
+            <tr>
+              <th>test</th>
+              <th>test</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>abcdefghijklmnop</td>
+              <td>test</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-                </div>
-            
-                <div class = "block">
-                    <h1>Third Slide</h1>
-<p>Some maths:</p>
-<p>$$
-L(x, \omega_o) = L_e(x, \omega_i) + \int_\Omega f(x, \omega_o, \omega_i) L(x’(x, \omega_i), -\omega_i) d\omega_i
-$$</p>
-<p>test<br />
-$L = L_e + TL$</p>
-<!-- ![test](test.png)  -->
-<p>![[test.png]]</p>
-
-                </div>
-            
-        </div>
-        <script>
-        MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [             // start/end delimiter pairs for display math
-                    ['$$', '$$'],
-                    ['\\[', '\\]']
-                ],
-            }
-        };
-        </script>
-        <script id="MathJax-script" async
-          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
-        </script>
-    </body>
-    
+      <div class="block">
+        <h1>Third Slide</h1>
+        <p>Some maths:</p>
+        <p>
+          $$ L(x, \omega_o) = L_e(x, \omega_i) + \int_\Omega f(x, \omega_o,
+          \omega_i) L(x’(x, \omega_i), -\omega_i) d\omega_i $$
+        </p>
+        <p>
+          test<br />
+          $L = L_e + TL$
+        </p>
+        <p><img src="test.png" alt="test" /></p>
+      </div>
+    </div>
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            // start/end delimiter pairs for display math
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+    ></script>
+  </body>
 </html>
-

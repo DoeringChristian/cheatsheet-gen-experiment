@@ -1,0 +1,35 @@
+\documentclass[ 6pt, a4paper, landscape ]{scrartcl}
+
+\usepackage{multicol}
+\usepackage{lipsum}
+\usepackage{geometry}
+\usepackage{boites,framed,multicol}
+\usepackage{graphicx}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage[english, german]{babel}	
+\usepackage[utf8]{inputenc}	
+
+\title{Cheat Sheet}
+\author{Christian D\"oring}
+
+
+\geometry{a4paper,landscape, left=6mm,right=6mm, top=0mm, bottom=3mm}
+
+\setlength{\parskip}{1pt}
+
+\begin{document}
+
+\maketitle
+
+\begin{multicols}{4}
+
+	{% for block in blocks %}
+	\begin{breakbox}
+		{{block.content}}
+	\end{breakbox}
+	{% endfor %}
+
+\end{multicols}
+
+\end{document}
