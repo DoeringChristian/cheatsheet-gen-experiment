@@ -10,3 +10,11 @@
     border: 1px solid black; 
     border-radius: 10px;
 }
+.markdown-alert-tip{
+    display: flex;
+    border-left-width: 0.25em;
+    border-left-style: solid;
+    border-left-color: #238636;
+    padding-left: 1em;
+}
+

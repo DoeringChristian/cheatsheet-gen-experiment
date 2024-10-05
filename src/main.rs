@@ -51,6 +51,13 @@ fn main() {
 
             let parser = md::Parser::new_ext(&src, options);
 
+            // Preprocessing
+            let parser = parser.map(|event| match event {
+                // pulldown_cmark::Event::Start(Tag::BlockQuote(Some(kind))) => md::Event::Html(),
+                _ => event,
+            });
+
+            // Pull in aditional files
             let parser = parser.map(|event| {
                 dbg!(&event);
                 match &event {
@@ -71,6 +78,12 @@ fn main() {
                 event
             });
 
+            // Post Processing
+            let parser = parser.map(|event| match event {
+                _ => event,
+            });
+
+            // Split by H1 headings
             let mut chunk_id = 0;
             let parsers = parser.chunk_by(|event| match event {
                 pulldown_cmark::Event::Start(Tag::Heading {
@@ -83,6 +96,7 @@ fn main() {
                 _ => chunk_id,
             });
 
+            // Render HTML and generate blocks
             let blocks = parsers
                 .into_iter()
                 .map(|(i, parser)| {
