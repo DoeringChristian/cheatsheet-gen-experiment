@@ -2,62 +2,67 @@
 <html>
     <body>
         <div style = "display: flex; flex-direction: row; flex-wrap: wrap; align-items: space-around; justify-content: center; gap: 10px;">
+            
+                <div style = "border: 1px solid black;">
+                    <h1>First Slide</h1>
+<ul>
+<li>Improved implementation of [[Neural Radiance Cascades 240908-100857|Neural Radiance Cascades]]</li>
+<li>For some reason my implementation is unreasonably slow</li>
+<li>Sorted notes</li>
+</ul>
 
-            <div style = "border: 1px solid black;">
-                <h1>First Slide</h1>
-                <ul>
-                    <li>Improved implementation of [[Neural Radiance Cascades 240908-100857|Neural Radiance Cascades]]</li>
-                    <li>For some reason my implementation is unreasonably slow</li>
-                    <li>Sorted notes</li>
-                </ul>
+                </div>
+            
+                <div style = "border: 1px solid black;">
+                    <h1>Second Slide</h1>
+<ul>
+<li>Updates system [[fedora update]]</li>
+</ul>
+<table><thead><tr><th>test</th><th>test</th></tr></thead><tbody>
+<tr><td>abcdefghijklmnop</td><td>test</td></tr>
+</tbody></table>
 
-            </div>
+                </div>
+            
+                <div style = "border: 1px solid black;">
+                    <h1>Third Slide</h1>
+<p>Some maths:</p>
+<p><span class="math math-display">
+L(x, \omega_o) = L_e(x, \omega_i) + \int_\Omega f(x, \omega_o, \omega_i) L(x&#39;(x, \omega_i), -\omega_i) d\omega_i
+</span></p>
+<p>test<br />
+<span class="math math-inline">L = L_e + TL</span></p>
+<p><img src="test.png" alt="test" /></p>
 
-            <div style = "border: 1px solid black;">
-                <h1>Second Slide</h1>
-                <ul>
-                    <li>Updates system [[fedora update]]</li>
-                </ul>
-                <p>| test             | test |
-                | ---------------- | ---- |
-                | abcdefghijklmnop | test |</p>
+                </div>
+            
+                <div style = "border: 1px solid black;">
+                    <h1>Fourth Slide</h1>
+<p>There should be some pretty long content in here for the flexbox to wrap.</p>
 
-            </div>
+                </div>
+            
+                <div style = "border: 1px solid black;">
+                    <h1>Fourth Slide Second Part</h1>
 
-            <div style = "border: 1px solid black;">
-                <h1>Third Slide</h1>
-                <p>Some maths:</p>
-                <p>$$
-                L(x, \omega_o) = L_e(x, \omega_i) + \int_\Omega f(x, \omega_o, \omega_i) L(x'(x, \omega_i), -\omega_i) d\omega_i
-                $$</p>
-                <p>test<br />
-                $L = L_e + TL$</p>
-                <p><img src="test.png" alt="test" /></p>
-
-            </div>
-
-            <div style = "border: 1px solid black;">
-                <h1>Fourth Slide</h1>
-                <p>There should be some pretty long content in here for the flexbox to wrap.</p>
-
-            </div>
-
+                </div>
+            
         </div>
         <script>
-            MathJax = {
-                tex: {
-                    inlineMath: [['$', '$'], ['\\(', '\\)']],
-                    displayMath: [             // start/end delimiter pairs for display math
-                        ['$$', '$$'],
-                        ['\\[', '\\]']
-                    ],
-                }
-            };
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [             // start/end delimiter pairs for display math
+                    ['$$', '$$'],
+                    ['\\[', '\\]']
+                ],
+            }
+        };
         </script>
         <script id="MathJax-script" async
-                src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
         </script>
     </body>
-
+    
 </html>
 

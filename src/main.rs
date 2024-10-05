@@ -1,6 +1,7 @@
 use std::path::{Path, PathBuf};
 
-use pulldown_cmark as md;
+use itertools::Itertools;
+use pulldown_cmark::{self as md, HeadingLevel, Tag};
 use serde::Serialize;
 use tera::{Context, Tera};
 
@@ -46,7 +47,7 @@ fn main() {
 
     let blocks = md_files
         .into_iter()
-        .map(|filename| {
+        .flat_map(|filename| {
             dbg!(&filename);
             let src = std::fs::read_to_string(filename).unwrap();
 
@@ -54,12 +55,31 @@ fn main() {
             options.insert(md::Options::ENABLE_MATH);
             options.insert(md::Options::ENABLE_TABLES);
 
-            let parser = md::Parser::new(&src);
+            let parser = md::Parser::new_ext(&src, options);
 
-            let mut html = String::new();
-            pulldown_cmark::html::push_html(&mut html, parser);
+            let mut chunk_id = 0;
+            let parsers = parser.chunk_by(|event| match event {
+                pulldown_cmark::Event::Start(Tag::Heading {
+                    level: HeadingLevel::H1,
+                    ..
+                }) => {
+                    chunk_id += 1;
+                    chunk_id
+                }
+                // pulldown_cmark::Event::End(Tag::Heading { .. }) => todo!(),
+                _ => chunk_id,
+            });
 
-            Block { content: html }
+            let blocks = parsers
+                .into_iter()
+                .map(|(i, parser)| {
+                    let mut html = String::new();
+                    pulldown_cmark::html::push_html(&mut html, parser);
+                    Block { content: html }
+                })
+                .collect::<Vec<_>>();
+
+            blocks
         })
         .collect::<Vec<_>>();
 
