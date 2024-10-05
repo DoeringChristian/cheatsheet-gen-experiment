@@ -9,6 +9,7 @@
 .block{
     border: 1px solid black; 
     border-radius: 10px;
+    padding: 10px;
 }
 .markdown-alert-tip{
     display: flex;
