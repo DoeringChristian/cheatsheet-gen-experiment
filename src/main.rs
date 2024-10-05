@@ -11,7 +11,6 @@ use clap::Parser;
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Args {
-    // folder: PathBuf,
     input: Vec<PathBuf>,
 
     #[arg(short, long, default_value = "data/templates/")]
@@ -109,6 +108,4 @@ fn main() {
     dbg!(&result);
 
     std::fs::write(args.out.join("index.html"), result).unwrap();
-
-    // dbg!(&ast);
 }
