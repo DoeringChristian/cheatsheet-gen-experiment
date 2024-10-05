@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+    </head>
     <body>
-        <div style = "display: flex; flex-direction: row; flex-wrap: wrap; align-items: space-around; justify-content: center; gap: 10px;">
+        <div class = "container">
             {% for block in blocks %}
-                <div style = "border: 1px solid black; border-radius: 10px;">
+                <div class = "block">
                     {{block.content}}
                 </div>
             {% endfor %}

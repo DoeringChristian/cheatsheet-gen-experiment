@@ -1,0 +1,13 @@
+
+.blocks{
+    display: flex; 
+    flex-direction: row; 
+    flex-wrap: wrap; 
+    align-items: space-around; 
+    justify-content: center; 
+    gap: 10px;   
+}
+.block{
+    border: 1px solid black; 
+    border-radius: 10px;
+}
