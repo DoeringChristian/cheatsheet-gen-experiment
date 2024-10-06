@@ -1,5 +1,7 @@
 mod html;
 mod latex;
+mod typst;
+mod typst_to_pdf;
 
 use std::path::{Path, PathBuf};
 
@@ -14,6 +16,7 @@ use clap::Parser;
 use html::push_html;
 
 use self::latex::push_latex;
+use self::typst::push_typst;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
@@ -25,6 +28,9 @@ struct Args {
 
     #[arg(short, long, default_value = "out")]
     out: PathBuf,
+
+    #[arg(long, action)]
+    pdf: bool,
 }
 
 #[derive(Serialize, Debug)]
@@ -108,7 +114,7 @@ fn main() {
                 .into_iter()
                 .map(|(i, parser)| {
                     let mut html = String::new();
-                    push_latex(&mut html, parser);
+                    push_typst(&mut html, parser);
                     // pulldown_cmark::html::push_html(&mut html, parser);
                     Block { content: html }
                 })
@@ -126,22 +132,25 @@ fn main() {
     )
     .unwrap();
 
-    fs_extra::copy_items(
-        &[&args.templates.join("css")],
-        args.out.to_str().unwrap(),
-        &fs_extra::dir::CopyOptions::default().overwrite(true),
-    )
-    .unwrap();
+    // fs_extra::copy_items(
+    //     &[&args.templates.join("css")],
+    //     args.out.to_str().unwrap(),
+    //     &fs_extra::dir::CopyOptions::default().overwrite(true),
+    // )
+    // .unwrap();
 
-    let mut tera = Tera::new(args.templates.join("*.tex").to_str().unwrap()).unwrap();
+    let mut tera = Tera::new(args.templates.join("*.typ").to_str().unwrap()).unwrap();
     tera.autoescape_on(vec![]);
 
     let mut context = Context::new();
     context.insert("blocks", &blocks);
 
-    let result = tera.render("main.tex", &context).unwrap();
+    let result = tera.render("main.typ", &context).unwrap();
 
-    dbg!(&result);
-
-    std::fs::write(args.out.join("main.tex"), result).unwrap();
+    if args.pdf {
+        let result = typst_to_pdf::to_pdf(result, &args.out, additional_files);
+        std::fs::write(args.out.join("main.pdf"), result).unwrap();
+    } else {
+        std::fs::write(args.out.join("main.typ"), result).unwrap();
+    }
 }
